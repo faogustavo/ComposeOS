@@ -90,3 +90,9 @@ android {
 dependencies {
     debugImplementation(compose.uiTooling)
 }
+
+compose.resources {
+    publicResClass = false
+    packageOfResClass = "com.composeos.win95.generated.resources"
+    generateResClass = auto
+}
