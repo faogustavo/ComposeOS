@@ -1,0 +1,7 @@
+package co.compose.dev.os
+
+class Greeting {
+    private val platform = getPlatform()
+
+    fun greet(): String = "Hello, ${platform.name}!"
+}
