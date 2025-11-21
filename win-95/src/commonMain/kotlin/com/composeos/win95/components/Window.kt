@@ -1,6 +1,7 @@
 package com.composeos.win95.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicText
@@ -19,131 +20,285 @@ import com.composeos.win95.foundation.win98Border
 
 @Composable
 fun Window(
-    title: String,
-    onClose: () -> Unit,
-    modifier: Modifier = Modifier,
-    onDrag: ((Offset) -> Unit)? = null,
-    onMinimize: (() -> Unit)? = null,
-    icon: (@Composable () -> Unit)? = null,
-    isActive: Boolean = true,
-    content: @Composable () -> Unit,
+        title: String,
+        onClose: () -> Unit,
+        modifier: Modifier = Modifier,
+        onDrag: ((Offset) -> Unit)? = null,
+        onMinimize: (() -> Unit)? = null,
+        onMaximize: (() -> Unit)? = null,
+        isMaximized: Boolean = false,
+        icon: (@Composable () -> Unit)? = null,
+        isActive: Boolean = true,
+        content: @Composable () -> Unit,
 ) {
-    Column(
-        modifier =
-            modifier
-                .background(
-                    _root_ide_package_.com.composeos.win95.foundation.Colors
-                        .ButtonFace,
-                ).win98Border(pressed = false, outerWidth = 2.dp, innerWidth = 1.dp)
-                .padding(3.dp),
-    ) {
-        // Title Bar
-        Row(
-            modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .height(18.dp)
-                    .background(
-                        brush =
-                            if (isActive) {
-                                Brush.horizontalGradient(
-                                    colors =
-                                        listOf(
-                                            _root_ide_package_.com
-                                                .composeos.win95
-                                                .foundation
-                                                .Colors.Navy,
-                                            _root_ide_package_.com
-                                                .composeos.win95
-                                                .foundation
-                                                .Colors.Blue,
-                                        ), // Simplified
-                                    // gradient
+        Column(
+                modifier =
+                        modifier.background(
+                                        _root_ide_package_.com.composeos.win95.foundation.Colors
+                                                .ButtonFace,
                                 )
-                            } else {
-                                Brush.horizontalGradient(
-                                    colors =
-                                        listOf(
-                                            _root_ide_package_.com
-                                                .composeos.win95
-                                                .foundation
-                                                .Colors.Gray,
-                                            _root_ide_package_.com
-                                                .composeos.win95
-                                                .foundation
-                                                .Colors.Silver,
-                                        ),
-                                )
-                            },
-                    ).padding(horizontal = 2.dp)
-                    .pointerInput(Unit) {
-                        detectDragGestures { change, dragAmount ->
-                            change.consume()
-                            onDrag?.invoke(dragAmount)
-                        }
-                    },
-            verticalAlignment = Alignment.CenterVertically,
+                                .win98Border(pressed = false, outerWidth = 2.dp, innerWidth = 1.dp)
+                                .padding(3.dp),
         ) {
-            if (icon != null) {
-                icon()
-                Spacer(modifier = Modifier.width(2.dp))
-            }
-
-            BasicText(
-                text = title,
-                style =
-                    TextStyle(
-                        color =
-                            _root_ide_package_.com.composeos.win95.foundation.Colors
-                                .TitleBarText,
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.Bold,
-                    ),
-                modifier = Modifier.weight(1f),
-            )
-
-            if (onMinimize != null) {
-                _root_ide_package_.com.composeos.win95.components.Button(
-                    onClick = onMinimize,
-                    contentPadding = PaddingValues(0.dp),
-                    modifier = Modifier.size(16.dp, 14.dp),
+                // Title Bar
+                Row(
+                        modifier =
+                                Modifier.fillMaxWidth()
+                                        .height(18.dp)
+                                        .background(
+                                                brush =
+                                                        if (isActive) {
+                                                                Brush.horizontalGradient(
+                                                                        colors =
+                                                                                listOf(
+                                                                                        _root_ide_package_
+                                                                                                .com
+                                                                                                .composeos
+                                                                                                .win95
+                                                                                                .foundation
+                                                                                                .Colors
+                                                                                                .Navy,
+                                                                                        _root_ide_package_
+                                                                                                .com
+                                                                                                .composeos
+                                                                                                .win95
+                                                                                                .foundation
+                                                                                                .Colors
+                                                                                                .Blue,
+                                                                                ), // Simplified
+                                                                        // gradient
+                                                                        )
+                                                        } else {
+                                                                Brush.horizontalGradient(
+                                                                        colors =
+                                                                                listOf(
+                                                                                        _root_ide_package_
+                                                                                                .com
+                                                                                                .composeos
+                                                                                                .win95
+                                                                                                .foundation
+                                                                                                .Colors
+                                                                                                .Gray,
+                                                                                        _root_ide_package_
+                                                                                                .com
+                                                                                                .composeos
+                                                                                                .win95
+                                                                                                .foundation
+                                                                                                .Colors
+                                                                                                .Silver,
+                                                                                ),
+                                                                )
+                                                        },
+                                        )
+                                        .padding(horizontal = 2.dp)
+                                        .pointerInput(Unit) {
+                                                detectDragGestures { change, dragAmount ->
+                                                        change.consume()
+                                                        onDrag?.invoke(dragAmount)
+                                                }
+                                        },
+                        verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    BasicText(
-                        text = "_",
-                        style =
-                            TextStyle(
-                                color =
-                                    _root_ide_package_.com.composeos.win95
-                                        .foundation.Colors.ButtonText,
-                                fontSize = 10.sp,
-                                fontWeight = FontWeight.Bold,
-                            ),
-                        modifier = Modifier.offset(y = (-3).dp),
-                    )
+                        if (icon != null) {
+                                icon()
+                                Spacer(modifier = Modifier.width(2.dp))
+                        }
+
+                        BasicText(
+                                text = title,
+                                style =
+                                        TextStyle(
+                                                color =
+                                                        _root_ide_package_.com.composeos.win95
+                                                                .foundation.Colors.TitleBarText,
+                                                fontSize = 11.sp,
+                                                fontWeight = FontWeight.Bold,
+                                        ),
+                                modifier = Modifier.weight(1f),
+                        )
+
+                        if (onMinimize != null) {
+                                _root_ide_package_.com.composeos.win95.components.Button(
+                                        onClick = onMinimize,
+                                        contentPadding = PaddingValues(0.dp),
+                                        modifier = Modifier.size(16.dp, 14.dp),
+                                ) {
+                                        BasicText(
+                                                text = "_",
+                                                style =
+                                                        TextStyle(
+                                                                color =
+                                                                        _root_ide_package_.com
+                                                                                .composeos.win95
+                                                                                .foundation.Colors
+                                                                                .ButtonText,
+                                                                fontSize = 10.sp,
+                                                                fontWeight = FontWeight.Bold,
+                                                        ),
+                                                modifier = Modifier.offset(y = (-3).dp),
+                                        )
+                                }
+                                Spacer(modifier = Modifier.width(2.dp))
+                        }
+
+                        if (onMaximize != null) {
+                                _root_ide_package_.com.composeos.win95.components.Button(
+                                        onClick = onMaximize,
+                                        contentPadding = PaddingValues(0.dp),
+                                        modifier = Modifier.size(16.dp, 14.dp),
+                                ) {
+                                        if (isMaximized) {
+                                                Box(modifier = Modifier.size(10.dp)) {
+                                                        // Back window
+                                                        Box(
+                                                                modifier =
+                                                                        Modifier.size(7.dp)
+                                                                                .align(
+                                                                                        Alignment
+                                                                                                .TopEnd
+                                                                                )
+                                                                                .border(
+                                                                                        1.dp,
+                                                                                        _root_ide_package_
+                                                                                                .com
+                                                                                                .composeos
+                                                                                                .win95
+                                                                                                .foundation
+                                                                                                .Colors
+                                                                                                .ButtonText,
+                                                                                ),
+                                                        ) {
+                                                                Box(
+                                                                        modifier =
+                                                                                Modifier.fillMaxWidth()
+                                                                                        .height(
+                                                                                                2.dp
+                                                                                        )
+                                                                                        .background(
+                                                                                                _root_ide_package_
+                                                                                                        .com
+                                                                                                        .composeos
+                                                                                                        .win95
+                                                                                                        .foundation
+                                                                                                        .Colors
+                                                                                                        .ButtonText,
+                                                                                        )
+                                                                                        .align(
+                                                                                                Alignment
+                                                                                                        .TopCenter
+                                                                                        ),
+                                                                )
+                                                        }
+                                                        // Front window
+                                                        Box(
+                                                                modifier =
+                                                                        Modifier.size(7.dp)
+                                                                                .align(
+                                                                                        Alignment
+                                                                                                .BottomStart
+                                                                                )
+                                                                                .background(
+                                                                                        _root_ide_package_
+                                                                                                .com
+                                                                                                .composeos
+                                                                                                .win95
+                                                                                                .foundation
+                                                                                                .Colors
+                                                                                                .ButtonFace,
+                                                                                )
+                                                                                .border(
+                                                                                        1.dp,
+                                                                                        _root_ide_package_
+                                                                                                .com
+                                                                                                .composeos
+                                                                                                .win95
+                                                                                                .foundation
+                                                                                                .Colors
+                                                                                                .ButtonText,
+                                                                                ),
+                                                        ) {
+                                                                Box(
+                                                                        modifier =
+                                                                                Modifier.fillMaxWidth()
+                                                                                        .height(
+                                                                                                2.dp
+                                                                                        )
+                                                                                        .background(
+                                                                                                _root_ide_package_
+                                                                                                        .com
+                                                                                                        .composeos
+                                                                                                        .win95
+                                                                                                        .foundation
+                                                                                                        .Colors
+                                                                                                        .ButtonText,
+                                                                                        )
+                                                                                        .align(
+                                                                                                Alignment
+                                                                                                        .TopCenter
+                                                                                        ),
+                                                                )
+                                                        }
+                                                }
+                                        } else {
+                                                Box(
+                                                        modifier =
+                                                                Modifier.size(9.dp)
+                                                                        .border(
+                                                                                1.dp,
+                                                                                _root_ide_package_
+                                                                                        .com
+                                                                                        .composeos
+                                                                                        .win95
+                                                                                        .foundation
+                                                                                        .Colors
+                                                                                        .ButtonText,
+                                                                        ),
+                                                ) {
+                                                        Box(
+                                                                modifier =
+                                                                        Modifier.fillMaxWidth()
+                                                                                .height(2.dp)
+                                                                                .background(
+                                                                                        _root_ide_package_
+                                                                                                .com
+                                                                                                .composeos
+                                                                                                .win95
+                                                                                                .foundation
+                                                                                                .Colors
+                                                                                                .ButtonText,
+                                                                                )
+                                                                                .align(
+                                                                                        Alignment
+                                                                                                .TopCenter
+                                                                                ),
+                                                        )
+                                                }
+                                        }
+                                }
+                                Spacer(modifier = Modifier.width(2.dp))
+                        }
+
+                        _root_ide_package_.com.composeos.win95.components.Button(
+                                onClick = onClose,
+                                contentPadding = PaddingValues(0.dp),
+                                modifier = Modifier.size(16.dp, 14.dp),
+                        ) {
+                                BasicText(
+                                        text = "X",
+                                        style =
+                                                TextStyle(
+                                                        color =
+                                                                _root_ide_package_.com.composeos
+                                                                        .win95.foundation.Colors
+                                                                        .ButtonText,
+                                                        fontSize = 10.sp,
+                                                        fontWeight = FontWeight.Bold,
+                                                ),
+                                )
+                        }
                 }
-                Spacer(modifier = Modifier.width(2.dp))
-            }
 
-            _root_ide_package_.com.composeos.win95.components.Button(
-                onClick = onClose,
-                contentPadding = PaddingValues(0.dp),
-                modifier = Modifier.size(16.dp, 14.dp),
-            ) {
-                BasicText(
-                    text = "X",
-                    style =
-                        TextStyle(
-                            color =
-                                _root_ide_package_.com.composeos.win95.foundation
-                                    .Colors.ButtonText,
-                            fontSize = 10.sp,
-                            fontWeight = FontWeight.Bold,
-                        ),
-                )
-            }
+                // Content
+                Box(modifier = Modifier.weight(1f).fillMaxWidth().padding(top = 2.dp)) { content() }
         }
-
-        // Content
-        Box(modifier = Modifier.weight(1f).fillMaxWidth().padding(top = 2.dp)) { content() }
-    }
 }
