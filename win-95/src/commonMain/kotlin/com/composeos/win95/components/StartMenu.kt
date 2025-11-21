@@ -8,13 +8,16 @@ import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.composeos.win95.foundation.Colors
 import com.composeos.win95.foundation.win98Border
+import com.composeos.win95.generated.resources.*
 import com.composeos.win95.generated.resources.find
 import com.composeos.win95.generated.resources.folder
 import com.composeos.win95.generated.resources.help
@@ -22,7 +25,6 @@ import com.composeos.win95.generated.resources.programs
 import com.composeos.win95.generated.resources.run
 import com.composeos.win95.generated.resources.settings
 import com.composeos.win95.generated.resources.shutdown
-import com.composeos.win95.generated.resources.*
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
@@ -31,7 +33,8 @@ fun StartMenu(modifier: Modifier = Modifier) {
         modifier =
             modifier
                 .width(200.dp)
-                .background(_root_ide_package_.com.composeos.win95.foundation.Colors.ButtonFace)
+                .height(IntrinsicSize.Min)
+                .background(com.composeos.win95.foundation.Colors.ButtonFace)
                 .win98Border(pressed = false, outerWidth = 2.dp, innerWidth = 1.dp)
                 .padding(2.dp),
     ) {
@@ -40,49 +43,69 @@ fun StartMenu(modifier: Modifier = Modifier) {
             modifier =
                 Modifier
                     .width(24.dp)
-                    .fillMaxHeight() // This might need fixed height if parent
-                    // not fixed
-                    .height(250.dp) // Approximate height
-                    .background(_root_ide_package_.com.composeos.win95.foundation.Colors.Navy),
+                    .fillMaxHeight()
+                    .background(com.composeos.win95.foundation.Colors.Navy),
             contentAlignment = Alignment.BottomCenter,
         ) {
             BasicText(
                 text = "Windows 98",
                 style =
                     TextStyle(
-                        color = _root_ide_package_.com.composeos.win95.foundation.Colors.White,
+                        color = Colors.White,
                         fontWeight = FontWeight.Bold,
                         fontSize = 16.sp,
                     ),
-                modifier = Modifier.padding(bottom = 8.dp).rotate(-90f),
+                modifier =
+                    Modifier
+                        .padding(bottom = 8.dp)
+                        .graphicsLayer { rotationZ = -90f }
+                        .layout { measurable, constraints ->
+                            val placeable =
+                                measurable.measure(
+                                    constraints.copy(
+                                        minWidth = 0,
+                                        maxWidth = Constraints.Infinity,
+                                    ),
+                                )
+                            layout(placeable.height, placeable.width) {
+                                placeable.place(
+                                    x =
+                                        -(placeable.width / 2) +
+                                            (placeable.height / 2),
+                                    y =
+                                        -(placeable.height / 2) +
+                                            (placeable.width / 2),
+                                )
+                            }
+                        },
             )
         }
 
         // Menu Items
         Column(modifier = Modifier.weight(1f).padding(start = 2.dp)) {
-            _root_ide_package_.com.composeos.win95.components.StartMenuItem(
+            com.composeos.win95.components.StartMenuItem(
                 text = "Programs",
-                icon = _root_ide_package_.com.composeos.win95.generated.resources.Res.drawable.programs
+                icon = com.composeos.win95.generated.resources.Res.drawable.programs,
             )
-            _root_ide_package_.com.composeos.win95.components.StartMenuItem(
+            com.composeos.win95.components.StartMenuItem(
                 text = "Documents",
-                icon = _root_ide_package_.com.composeos.win95.generated.resources.Res.drawable.folder
+                icon = com.composeos.win95.generated.resources.Res.drawable.folder,
             )
-            _root_ide_package_.com.composeos.win95.components.StartMenuItem(
+            com.composeos.win95.components.StartMenuItem(
                 text = "Settings",
-                icon = _root_ide_package_.com.composeos.win95.generated.resources.Res.drawable.settings
+                icon = com.composeos.win95.generated.resources.Res.drawable.settings,
             )
-            _root_ide_package_.com.composeos.win95.components.StartMenuItem(
+            com.composeos.win95.components.StartMenuItem(
                 text = "Find",
-                icon = _root_ide_package_.com.composeos.win95.generated.resources.Res.drawable.find
+                icon = com.composeos.win95.generated.resources.Res.drawable.find,
             )
-            _root_ide_package_.com.composeos.win95.components.StartMenuItem(
+            com.composeos.win95.components.StartMenuItem(
                 text = "Help",
-                icon = _root_ide_package_.com.composeos.win95.generated.resources.Res.drawable.help
+                icon = com.composeos.win95.generated.resources.Res.drawable.help,
             )
-            _root_ide_package_.com.composeos.win95.components.StartMenuItem(
+            com.composeos.win95.components.StartMenuItem(
                 text = "Run...",
-                icon = _root_ide_package_.com.composeos.win95.generated.resources.Res.drawable.run
+                icon = com.composeos.win95.generated.resources.Res.drawable.run,
             )
 
             Spacer(modifier = Modifier.height(4.dp))
@@ -91,14 +114,14 @@ fun StartMenu(modifier: Modifier = Modifier) {
                     Modifier
                         .fillMaxWidth()
                         .height(2.dp)
-                        .background(_root_ide_package_.com.composeos.win95.foundation.Colors.ButtonShadow)
+                        .background(com.composeos.win95.foundation.Colors.ButtonShadow)
                         .win98Border(pressed = true),
             )
             Spacer(modifier = Modifier.height(4.dp))
 
-            _root_ide_package_.com.composeos.win95.components.StartMenuItem(
+            com.composeos.win95.components.StartMenuItem(
                 text = "Shut Down...",
-                icon = _root_ide_package_.com.composeos.win95.generated.resources.Res.drawable.shutdown
+                icon = com.composeos.win95.generated.resources.Res.drawable.shutdown,
             )
         }
     }
@@ -122,7 +145,11 @@ fun StartMenuItem(
         Spacer(modifier = Modifier.width(8.dp))
         BasicText(
             text = text,
-            style = TextStyle(color = _root_ide_package_.com.composeos.win95.foundation.Colors.ButtonText, fontSize = 12.sp),
+            style =
+                TextStyle(
+                    color = com.composeos.win95.foundation.Colors.ButtonText,
+                    fontSize = 12.sp,
+                ),
         )
     }
 }

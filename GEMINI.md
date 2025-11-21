@@ -56,6 +56,7 @@ Open the `iosApp` directory in Xcode and run it from there.
 *   **Code Structure:** Shared code resides in `composeApp/src/commonMain/kotlin`. Platform-specific code is located in corresponding `androidMain`, `iosMain`, `jsMain`, `jvmMain`, and `wasmJsMain` directories.
 *   **UI:** Developed using Compose Multiplatform.
 *   **Build System:** Gradle is used for building the project.
+*   **Code Formatting:** The project uses `ktlint` for code formatting. Run `ktlint -F` to format the code.
 
 ## Further Exploration
 

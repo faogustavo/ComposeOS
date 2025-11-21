@@ -22,7 +22,10 @@ fun DesktopIcon(
     modifier: Modifier = Modifier,
     selected: Boolean = false,
     textColor: Color = _root_ide_package_.com.composeos.win95.foundation.Colors.White,
-    icon: @Composable () -> Unit = { _root_ide_package_.com.composeos.win95.components.DefaultIconPlaceholder() },
+    icon: @Composable () -> Unit = {
+        _root_ide_package_.com.composeos.win95.components
+            .DefaultIconPlaceholder()
+    },
 ) {
     Column(
         modifier = modifier.width(70.dp).clickable(onClick = onClick),
@@ -62,5 +65,13 @@ fun DesktopIcon(
 
 @Composable
 fun DefaultIconPlaceholder() {
-    Box(modifier = Modifier.size(32.dp).background(_root_ide_package_.com.composeos.win95.foundation.Colors.Silver).border(1.dp, _root_ide_package_.com.composeos.win95.foundation.Colors.Black))
+    Box(
+        modifier =
+            Modifier
+                .size(
+                    32.dp,
+                ).background(
+                    _root_ide_package_.com.composeos.win95.foundation.Colors.Silver,
+                ).border(1.dp, _root_ide_package_.com.composeos.win95.foundation.Colors.Black),
+    )
 }

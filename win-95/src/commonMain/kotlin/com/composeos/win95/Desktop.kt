@@ -15,8 +15,10 @@ import androidx.compose.ui.window.PopupProperties
 import com.composeos.win95.components.DesktopIcon
 import com.composeos.win95.components.StartMenu
 import com.composeos.win95.components.Taskbar
+import com.composeos.win95.components.TaskbarItem
 import com.composeos.win95.components.Window
 import com.composeos.win95.foundation.Colors
+import com.composeos.win95.generated.resources.*
 import com.composeos.win95.generated.resources.cd_drive
 import com.composeos.win95.generated.resources.disk_drive
 import com.composeos.win95.generated.resources.inbox
@@ -24,7 +26,6 @@ import com.composeos.win95.generated.resources.internet
 import com.composeos.win95.generated.resources.my_computer
 import com.composeos.win95.generated.resources.network
 import com.composeos.win95.generated.resources.recycle_bin
-import com.composeos.win95.generated.resources.*
 import org.jetbrains.compose.resources.painterResource
 import kotlin.math.roundToInt
 
@@ -32,68 +33,72 @@ import kotlin.math.roundToInt
 fun Desktop() {
     var showStartMenu by remember { mutableStateOf(false) }
     var showMyComputerWindow by remember { mutableStateOf(true) }
+    var isMyComputerWindowMinimized by remember { mutableStateOf(false) }
     var myComputerPosition by remember { mutableStateOf(Offset(100f, 50f)) }
 
-    Column(modifier = Modifier.fillMaxSize().background(_root_ide_package_.com.composeos.win95.foundation.Colors.Background)) {
+    Column(modifier = Modifier.fillMaxSize().background(Colors.Background)) {
         // Desktop Area (Icons + Windows)
         Box(modifier = Modifier.weight(1f).fillMaxSize()) {
             // Icons
             Column(modifier = Modifier.padding(8.dp)) {
-                _root_ide_package_.com.composeos.win95.components.DesktopIcon(
+                DesktopIcon(
                     title = "My Computer",
-                    onClick = { showMyComputerWindow = true },
+                    onClick = {
+                        showMyComputerWindow = true
+                        isMyComputerWindowMinimized = false
+                    },
                     selected = false,
                     icon = {
                         Image(
-                            painterResource(_root_ide_package_.com.composeos.win95.generated.resources.Res.drawable.my_computer),
+                            painterResource(Res.drawable.my_computer),
                             "My Computer",
                             modifier = Modifier.size(32.dp),
                         )
                     },
                 )
-                _root_ide_package_.com.composeos.win95.components.DesktopIcon(
+                DesktopIcon(
                     title = "Recycle Bin",
                     onClick = {},
                     selected = false,
                     icon = {
                         Image(
-                            painterResource(_root_ide_package_.com.composeos.win95.generated.resources.Res.drawable.recycle_bin),
+                            painterResource(Res.drawable.recycle_bin),
                             "Recycle Bin",
                             modifier = Modifier.size(32.dp),
                         )
                     },
                 )
-                _root_ide_package_.com.composeos.win95.components.DesktopIcon(
+                DesktopIcon(
                     title = "Network Neighborhood",
                     onClick = {},
                     selected = false,
                     icon = {
                         Image(
-                            painterResource(_root_ide_package_.com.composeos.win95.generated.resources.Res.drawable.network),
+                            painterResource(Res.drawable.network),
                             "Network Neighborhood",
                             modifier = Modifier.size(32.dp),
                         )
                     },
                 )
-                _root_ide_package_.com.composeos.win95.components.DesktopIcon(
+                DesktopIcon(
                     title = "Inbox",
                     onClick = {},
                     selected = false,
                     icon = {
                         Image(
-                            painterResource(_root_ide_package_.com.composeos.win95.generated.resources.Res.drawable.inbox),
+                            painterResource(Res.drawable.inbox),
                             "Inbox",
                             modifier = Modifier.size(32.dp),
                         )
                     },
                 )
-                _root_ide_package_.com.composeos.win95.components.DesktopIcon(
+                DesktopIcon(
                     title = "Internet Explorer",
                     onClick = {},
                     selected = false,
                     icon = {
                         Image(
-                            painterResource(_root_ide_package_.com.composeos.win95.generated.resources.Res.drawable.internet),
+                            painterResource(Res.drawable.internet),
                             "Internet Explorer",
                             modifier = Modifier.size(32.dp),
                         )
@@ -102,55 +107,73 @@ fun Desktop() {
             }
 
             // Windows
-            if (showMyComputerWindow) {
-                _root_ide_package_.com.composeos.win95.components.Window(
+            if (showMyComputerWindow && !isMyComputerWindowMinimized) {
+                Window(
                     title = "My Computer",
                     icon = {
                         Image(
-                            painterResource(_root_ide_package_.com.composeos.win95.generated.resources.Res.drawable.my_computer),
+                            painterResource(Res.drawable.my_computer),
                             "My Computer",
                             modifier = Modifier.size(16.dp),
                         )
                     },
                     onClose = { showMyComputerWindow = false },
+                    onMinimize = { isMyComputerWindowMinimized = true },
                     modifier =
                         Modifier
                             .offset {
                                 IntOffset(
-                                    myComputerPosition.x.roundToInt(),
-                                    myComputerPosition.y.roundToInt(),
+                                    myComputerPosition.x
+                                        .roundToInt(),
+                                    myComputerPosition.y
+                                        .roundToInt(),
                                 )
                             }.size(300.dp, 200.dp),
                     onDrag = { delta -> myComputerPosition += delta },
                 ) {
                     Box(
-                        modifier = Modifier.fillMaxSize()
-                            .background(_root_ide_package_.com.composeos.win95.foundation.Colors.White).padding(8.dp)
+                        modifier =
+                            Modifier
+                                .fillMaxSize()
+                                .background(Colors.White)
+                                .padding(8.dp),
                     ) {
                         Row {
-                            _root_ide_package_.com.composeos.win95.components.DesktopIcon(
+                            DesktopIcon(
                                 title = "(C:)",
                                 onClick = {},
-                                textColor = _root_ide_package_.com.composeos.win95.foundation.Colors.Black,
+                                textColor = Colors.Black,
                                 selected = false,
                                 icon = {
                                     Image(
-                                        painterResource(_root_ide_package_.com.composeos.win95.generated.resources.Res.drawable.disk_drive),
+                                        painterResource(
+                                            Res.drawable
+                                                .disk_drive,
+                                        ),
                                         "C:",
-                                        modifier = Modifier.size(32.dp),
+                                        modifier =
+                                            Modifier.size(
+                                                32.dp,
+                                            ),
                                     )
                                 },
                             )
-                            _root_ide_package_.com.composeos.win95.components.DesktopIcon(
+                            DesktopIcon(
                                 title = "(D:)",
                                 onClick = {},
-                                textColor = _root_ide_package_.com.composeos.win95.foundation.Colors.Black,
+                                textColor = Colors.Black,
                                 selected = false,
                                 icon = {
                                     Image(
-                                        painterResource(_root_ide_package_.com.composeos.win95.generated.resources.Res.drawable.cd_drive),
+                                        painterResource(
+                                            Res.drawable
+                                                .cd_drive,
+                                        ),
                                         "D:",
-                                        modifier = Modifier.size(32.dp),
+                                        modifier =
+                                            Modifier.size(
+                                                32.dp,
+                                            ),
                                     )
                                 },
                             )
@@ -170,10 +193,44 @@ fun Desktop() {
                 offset = IntOffset(0, -taskbarHeightPx),
                 onDismissRequest = { showStartMenu = false },
                 properties = PopupProperties(focusable = true),
-            ) { _root_ide_package_.com.composeos.win95.components.StartMenu() }
+            ) { StartMenu() }
         }
 
         // Taskbar
-        _root_ide_package_.com.composeos.win95.components.Taskbar(onStartClick = { showStartMenu = !showStartMenu })
+        val openWindows =
+            remember(showMyComputerWindow, isMyComputerWindowMinimized) {
+                val list = mutableListOf<TaskbarItem>()
+                if (showMyComputerWindow) {
+                    list.add(
+                        TaskbarItem(
+                            title = "My Computer",
+                            onClick = {
+                                isMyComputerWindowMinimized =
+                                    !isMyComputerWindowMinimized
+                            },
+                            isActive = !isMyComputerWindowMinimized,
+                            icon = {
+                                Image(
+                                    painterResource(
+                                        Res.drawable
+                                            .my_computer,
+                                    ),
+                                    "My Computer",
+                                    modifier =
+                                        Modifier.size(
+                                            16.dp,
+                                        ),
+                                )
+                            },
+                        ),
+                    )
+                }
+                list
+            }
+
+        Taskbar(
+            onStartClick = { showStartMenu = !showStartMenu },
+            openWindows = openWindows,
+        )
     }
 }

@@ -23,6 +23,7 @@ fun Window(
     onClose: () -> Unit,
     modifier: Modifier = Modifier,
     onDrag: ((Offset) -> Unit)? = null,
+    onMinimize: (() -> Unit)? = null,
     icon: (@Composable () -> Unit)? = null,
     isActive: Boolean = true,
     content: @Composable () -> Unit,
@@ -30,8 +31,10 @@ fun Window(
     Column(
         modifier =
             modifier
-                .background(_root_ide_package_.com.composeos.win95.foundation.Colors.ButtonFace)
-                .win98Border(pressed = false, outerWidth = 2.dp, innerWidth = 1.dp)
+                .background(
+                    _root_ide_package_.com.composeos.win95.foundation.Colors
+                        .ButtonFace,
+                ).win98Border(pressed = false, outerWidth = 2.dp, innerWidth = 1.dp)
                 .padding(3.dp),
     ) {
         // Title Bar
@@ -46,8 +49,14 @@ fun Window(
                                 Brush.horizontalGradient(
                                     colors =
                                         listOf(
-                                            _root_ide_package_.com.composeos.win95.foundation.Colors.Navy,
-                                            _root_ide_package_.com.composeos.win95.foundation.Colors.Blue,
+                                            _root_ide_package_.com
+                                                .composeos.win95
+                                                .foundation
+                                                .Colors.Navy,
+                                            _root_ide_package_.com
+                                                .composeos.win95
+                                                .foundation
+                                                .Colors.Blue,
                                         ), // Simplified
                                     // gradient
                                 )
@@ -55,8 +64,14 @@ fun Window(
                                 Brush.horizontalGradient(
                                     colors =
                                         listOf(
-                                            _root_ide_package_.com.composeos.win95.foundation.Colors.Gray,
-                                            _root_ide_package_.com.composeos.win95.foundation.Colors.Silver,
+                                            _root_ide_package_.com
+                                                .composeos.win95
+                                                .foundation
+                                                .Colors.Gray,
+                                            _root_ide_package_.com
+                                                .composeos.win95
+                                                .foundation
+                                                .Colors.Silver,
                                         ),
                                 )
                             },
@@ -78,12 +93,36 @@ fun Window(
                 text = title,
                 style =
                     TextStyle(
-                        color = _root_ide_package_.com.composeos.win95.foundation.Colors.TitleBarText,
+                        color =
+                            _root_ide_package_.com.composeos.win95.foundation.Colors
+                                .TitleBarText,
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Bold,
                     ),
                 modifier = Modifier.weight(1f),
             )
+
+            if (onMinimize != null) {
+                _root_ide_package_.com.composeos.win95.components.Button(
+                    onClick = onMinimize,
+                    contentPadding = PaddingValues(0.dp),
+                    modifier = Modifier.size(16.dp, 14.dp),
+                ) {
+                    BasicText(
+                        text = "_",
+                        style =
+                            TextStyle(
+                                color =
+                                    _root_ide_package_.com.composeos.win95
+                                        .foundation.Colors.ButtonText,
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold,
+                            ),
+                        modifier = Modifier.offset(y = (-3).dp),
+                    )
+                }
+                Spacer(modifier = Modifier.width(2.dp))
+            }
 
             _root_ide_package_.com.composeos.win95.components.Button(
                 onClick = onClose,
@@ -94,7 +133,9 @@ fun Window(
                     text = "X",
                     style =
                         TextStyle(
-                            color = _root_ide_package_.com.composeos.win95.foundation.Colors.ButtonText,
+                            color =
+                                _root_ide_package_.com.composeos.win95.foundation
+                                    .Colors.ButtonText,
                             fontSize = 10.sp,
                             fontWeight = FontWeight.Bold,
                         ),
