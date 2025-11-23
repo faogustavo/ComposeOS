@@ -27,6 +27,8 @@ object Colors {
     val ButtonHighlight = White
     val ButtonShadow = Gray
     val ButtonDkShadow = Black
+    val BorderDark = Gray
+    val BorderLight = White
 
     val Window = White
     val WindowText = Black

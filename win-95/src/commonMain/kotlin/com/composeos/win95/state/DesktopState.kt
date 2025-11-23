@@ -16,6 +16,8 @@ sealed class ApplicationType {
 
     data object Explorer : ApplicationType()
 
+    data object FileExplorer : ApplicationType()
+
     data object TaskManager : ApplicationType()
 }
 
