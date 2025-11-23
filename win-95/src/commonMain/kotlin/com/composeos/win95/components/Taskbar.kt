@@ -28,6 +28,7 @@ data class TaskbarItem(
 fun Taskbar(
     onStartClick: () -> Unit,
     openWindows: List<TaskbarItem>,
+    isStartMenuOpen: Boolean = false,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -44,7 +45,11 @@ fun Taskbar(
                 .padding(2.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Button(onClick = onStartClick, modifier = Modifier.fillMaxHeight()) {
+        Button(
+            onClick = onStartClick,
+            modifier = Modifier.fillMaxHeight(),
+            forcePressed = isStartMenuOpen,
+        ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 // Windows Logo placeholder
                 Image(

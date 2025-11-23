@@ -29,100 +29,105 @@ import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun StartMenu(modifier: Modifier = Modifier) {
-    Row(
+    Box(
         modifier =
             modifier
                 .width(200.dp)
-                .height(IntrinsicSize.Min)
                 .background(com.composeos.win95.foundation.Colors.ButtonFace)
                 .win98Border(pressed = false, outerWidth = 2.dp, innerWidth = 1.dp)
                 .padding(2.dp),
     ) {
-        // Side Strip
-        Box(
-            modifier =
-                Modifier
-                    .width(24.dp)
-                    .fillMaxHeight()
-                    .background(com.composeos.win95.foundation.Colors.Navy),
-            contentAlignment = Alignment.BottomCenter,
-        ) {
-            BasicText(
-                text = "Windows 98",
-                style =
-                    TextStyle(
-                        color = Colors.White,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp,
-                    ),
-                modifier =
-                    Modifier
-                        .padding(bottom = 8.dp)
-                        .graphicsLayer { rotationZ = -90f }
-                        .layout { measurable, constraints ->
-                            val placeable =
-                                measurable.measure(
-                                    constraints.copy(
-                                        minWidth = 0,
-                                        maxWidth = Constraints.Infinity,
-                                    ),
-                                )
-                            layout(placeable.height, placeable.width) {
-                                placeable.place(
-                                    x =
-                                        -(placeable.width / 2) +
-                                            (placeable.height / 2),
-                                    y =
-                                        -(placeable.height / 2) +
-                                            (placeable.width / 2),
-                                )
-                            }
-                        },
-            )
+        Row {
+            Spacer(modifier = Modifier.width(24.dp))
+            // Menu Items
+            Column(modifier = Modifier.weight(1f).padding(start = 2.dp)) {
+                com.composeos.win95.components.StartMenuItem(
+                    text = "Programs",
+                    icon = com.composeos.win95.generated.resources.Res.drawable.programs,
+                )
+                com.composeos.win95.components.StartMenuItem(
+                    text = "Documents",
+                    icon = com.composeos.win95.generated.resources.Res.drawable.folder,
+                )
+                com.composeos.win95.components.StartMenuItem(
+                    text = "Settings",
+                    icon = com.composeos.win95.generated.resources.Res.drawable.settings,
+                )
+                com.composeos.win95.components.StartMenuItem(
+                    text = "Find",
+                    icon = com.composeos.win95.generated.resources.Res.drawable.find,
+                )
+                com.composeos.win95.components.StartMenuItem(
+                    text = "Help",
+                    icon = com.composeos.win95.generated.resources.Res.drawable.help,
+                )
+                com.composeos.win95.components.StartMenuItem(
+                    text = "Run...",
+                    icon = com.composeos.win95.generated.resources.Res.drawable.run,
+                )
+
+                Spacer(modifier = Modifier.height(4.dp))
+                Box(
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .height(2.dp)
+                            .background(
+                                com.composeos.win95.foundation.Colors.ButtonShadow,
+                            ).win98Border(pressed = true),
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+
+                com.composeos.win95.components.StartMenuItem(
+                    text = "Shut Down...",
+                    icon = com.composeos.win95.generated.resources.Res.drawable.shutdown,
+                )
+            }
         }
 
-        // Menu Items
-        Column(modifier = Modifier.weight(1f).padding(start = 2.dp)) {
-            com.composeos.win95.components.StartMenuItem(
-                text = "Programs",
-                icon = com.composeos.win95.generated.resources.Res.drawable.programs,
-            )
-            com.composeos.win95.components.StartMenuItem(
-                text = "Documents",
-                icon = com.composeos.win95.generated.resources.Res.drawable.folder,
-            )
-            com.composeos.win95.components.StartMenuItem(
-                text = "Settings",
-                icon = com.composeos.win95.generated.resources.Res.drawable.settings,
-            )
-            com.composeos.win95.components.StartMenuItem(
-                text = "Find",
-                icon = com.composeos.win95.generated.resources.Res.drawable.find,
-            )
-            com.composeos.win95.components.StartMenuItem(
-                text = "Help",
-                icon = com.composeos.win95.generated.resources.Res.drawable.help,
-            )
-            com.composeos.win95.components.StartMenuItem(
-                text = "Run...",
-                icon = com.composeos.win95.generated.resources.Res.drawable.run,
-            )
-
-            Spacer(modifier = Modifier.height(4.dp))
+        // Side Strip
+        Box(modifier = Modifier.matchParentSize()) {
             Box(
                 modifier =
                     Modifier
-                        .fillMaxWidth()
-                        .height(2.dp)
-                        .background(com.composeos.win95.foundation.Colors.ButtonShadow)
-                        .win98Border(pressed = true),
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-
-            com.composeos.win95.components.StartMenuItem(
-                text = "Shut Down...",
-                icon = com.composeos.win95.generated.resources.Res.drawable.shutdown,
-            )
+                        .width(24.dp)
+                        .fillMaxHeight()
+                        .background(com.composeos.win95.foundation.Colors.Navy),
+                contentAlignment = Alignment.BottomCenter,
+            ) {
+                BasicText(
+                    text = "Windows 98",
+                    style =
+                        TextStyle(
+                            color = Colors.White,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 16.sp,
+                        ),
+                    modifier =
+                        Modifier
+                            .padding(bottom = 8.dp)
+                            .graphicsLayer { rotationZ = -90f }
+                            .layout { measurable, constraints ->
+                                val placeable =
+                                    measurable.measure(
+                                        constraints.copy(
+                                            minWidth = 0,
+                                            maxWidth = Constraints.Infinity,
+                                        ),
+                                    )
+                                layout(placeable.height, placeable.width) {
+                                    placeable.place(
+                                        x =
+                                            -(placeable.width / 2) +
+                                                (placeable.height / 2),
+                                        y =
+                                            -(placeable.height / 2) +
+                                                (placeable.width / 2),
+                                    )
+                                }
+                            },
+                )
+            }
         }
     }
 }
