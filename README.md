@@ -1,80 +1,51 @@
 This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop (JVM).
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-    - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-    - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-      For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-      the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-      Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-      folder is the appropriate location.
+## Project Purpose
 
-* [/iosApp](./iosApp/iosApp) contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+The project implements a Windows 95‑style desktop environment using Compose Multiplatform, showcasing cross‑platform UI capabilities and providing a nostalgic user experience.
 
-### Build and Run Android Application
+## Tools Used
 
-To build and run the development version of the Android app, use the run configuration from the run widget
-in your IDE’s toolbar or build it directly from the terminal:
+- **Gemini AI** – Provides AI assistance for code generation, documentation, and project guidance.
+- **Antigravity** – The AI coding assistant integrated into the development workflow.
 
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:assembleDebug
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:assembleDebug
-  ```
 
-### Build and Run Desktop (JVM) Application
+* [/composeApp](./composeApp/src) – Core shared code for the Compose Multiplatform application.
+  * `commonMain` – Code shared across all targets.
+  * Platform‑specific source sets (`androidMain`, `iosMain`, `jvmMain`, `jsMain`, `wasmJsMain`) contain code compiled only for the respective platform.
 
-To build and run the development version of the desktop app, use the run configuration from the run widget
-in your IDE’s toolbar or run it directly from the terminal:
+* [:win-95](./win-95) – UI library that provides Windows 95‑themed components and assets.
+  * Targets Android, iOS, JVM (Desktop), JS, and WasmJs.
+  * Includes icons, colors, and classic window decorations.
 
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:run
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:run
-  ```
+## Technologies Used
 
-### Build and Run Web Application
+* **Kotlin Multiplatform** – Share business logic and UI code across Android, iOS, Web, and Desktop.
+* **Compose Multiplatform** – Declarative UI framework that runs on all supported platforms.
+* **Gradle Kotlin DSL** – Build automation and dependency management.
+* **ktlint** – Code formatting.
 
-To build and run the development version of the web app, use the run configuration from the run widget
-in your IDE's toolbar or run it directly from the terminal:
+## Development Conventions
 
-- for the Wasm target (faster, modern browsers):
-    - on macOS/Linux
-      ```shell
-      ./gradlew :composeApp:wasmJsBrowserDevelopmentRun
-      ```
-    - on Windows
-      ```shell
-      .\gradlew.bat :composeApp:wasmJsBrowserDevelopmentRun
-      ```
-- for the JS target (slower, supports older browsers):
-    - on macOS/Linux
-      ```shell
-      ./gradlew :composeApp:jsBrowserDevelopmentRun
-      ```
-    - on Windows
-      ```shell
-      .\gradlew.bat :composeApp:jsBrowserDevelopmentRun
-      ```
+* **Code Structure** – Shared code lives in `composeApp/src/commonMain/kotlin`. Platform‑specific code resides in the corresponding source‑set directories.
+* **UI** – Built with Compose Multiplatform composables.
+* **Build System** – Gradle is used for all targets.
+* **Formatting** – Run `ktlint -F` to format the code (ktlint is already installed).
 
-### Build and Run iOS Application
+## UI/UX Behavior
 
-To build and run the development version of the iOS app, use the run configuration from the run widget
-in your IDE’s toolbar or open the [/iosApp](./iosApp) directory in Xcode and run it from there.
+Desktop icons mimic the classic Windows 95 interaction model:
+
+* **Single‑click** – Selects the icon (navy background with white dotted border).
+* **Double‑click** – Opens the associated application/window.
+
+Implemented with `DesktopIcon` (using `combinedClickable`) and `DesktopState.selectedIcon`.
+
+## Further Exploration
+
+* **Main entry point** – `composeApp/src/commonMain/kotlin/co/compose/dev/os/App.kt` calls `Desktop()` from the `:win-95` module.
+* **Resources** – General assets are in `composeApp/src/commonMain/composeResources/drawable/`; Windows 95‑themed assets are in `win-95/src/commonMain/composeResources/drawable/`.
 
 ---
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html),
-[Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform),
-[Kotlin/Wasm](https://kotl.in/wasm/)…
-
-We would appreciate your feedback on Compose/Web and Kotlin/Wasm in the public Slack
-channel [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web).
-If you face any issues, please report them on [YouTrack](https://youtrack.jetbrains.com/newIssue?project=CMP).
+Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html), [Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform), and [Kotlin/Wasm](https://kotl.in/wasm/).
