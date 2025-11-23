@@ -64,13 +64,14 @@ Open the `iosApp` directory in Xcode and run it from there.
 ### Desktop Icons
 
 Desktop icons follow the traditional desktop interaction pattern:
-- **Single-click**: Selects the icon (highlighted with a navy background and yellow border)
+- **Single-click**: Selects the icon (highlighted with a navy background and white dotted border)
 - **Double-click**: Opens the application/window associated with the icon
 
 This behavior is implemented using:
 - `DesktopIcon` component with `onDoubleClick` parameter
 - `DesktopState.selectedIcon` to track the currently selected icon
 - `combinedClickable` modifier from Compose Foundation
+- `drawBehind` modifier with `PathEffect.dashPathEffect` to create the authentic Windows 95 dotted border selection style
 
 ## Further Exploration
 
