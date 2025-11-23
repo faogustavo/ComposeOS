@@ -29,8 +29,8 @@ import com.composeos.win95.generated.resources.network
 import com.composeos.win95.generated.resources.recycle_bin
 import com.composeos.win95.state.ApplicationType
 import com.composeos.win95.state.DesktopState
-import org.jetbrains.compose.resources.painterResource
 import kotlin.math.roundToInt
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun Desktop() {
@@ -42,96 +42,95 @@ fun Desktop() {
             // Icons
             Column(modifier = Modifier.padding(8.dp)) {
                 DesktopIcon(
-                    title = "My Computer",
-                    onClick = {
-                        state.openWindow(
-                            ApplicationType.MyComputer,
-                            "My Computer",
-                            Res.drawable.my_computer,
-                        )
-                    },
-                    selected = false,
-                    icon = {
-                        Image(
-                            painterResource(Res.drawable.my_computer),
-                            "My Computer",
-                            modifier = Modifier.size(32.dp),
-                        )
-                    },
+                        title = "My Computer",
+                        onClick = {
+                            state.openWindow(
+                                    ApplicationType.MyComputer,
+                                    "My Computer",
+                                    Res.drawable.my_computer,
+                            )
+                        },
+                        selected = false,
+                        icon = {
+                            Image(
+                                    painterResource(Res.drawable.my_computer),
+                                    "My Computer",
+                                    modifier = Modifier.size(32.dp),
+                            )
+                        },
                 )
                 DesktopIcon(
-                    title = "Recycle Bin",
-                    onClick = {},
-                    selected = false,
-                    icon = {
-                        Image(
-                            painterResource(Res.drawable.recycle_bin),
-                            "Recycle Bin",
-                            modifier = Modifier.size(32.dp),
-                        )
-                    },
+                        title = "Recycle Bin",
+                        onClick = {},
+                        selected = false,
+                        icon = {
+                            Image(
+                                    painterResource(Res.drawable.recycle_bin),
+                                    "Recycle Bin",
+                                    modifier = Modifier.size(32.dp),
+                            )
+                        },
                 )
                 DesktopIcon(
-                    title = "Network Neighborhood",
-                    onClick = {},
-                    selected = false,
-                    icon = {
-                        Image(
-                            painterResource(Res.drawable.network),
-                            "Network Neighborhood",
-                            modifier = Modifier.size(32.dp),
-                        )
-                    },
+                        title = "Network Neighborhood",
+                        onClick = {},
+                        selected = false,
+                        icon = {
+                            Image(
+                                    painterResource(Res.drawable.network),
+                                    "Network Neighborhood",
+                                    modifier = Modifier.size(32.dp),
+                            )
+                        },
                 )
                 DesktopIcon(
-                    title = "Inbox",
-                    onClick = {},
-                    selected = false,
-                    icon = {
-                        Image(
-                            painterResource(Res.drawable.inbox),
-                            "Inbox",
-                            modifier = Modifier.size(32.dp),
-                        )
-                    },
+                        title = "Inbox",
+                        onClick = {},
+                        selected = false,
+                        icon = {
+                            Image(
+                                    painterResource(Res.drawable.inbox),
+                                    "Inbox",
+                                    modifier = Modifier.size(32.dp),
+                            )
+                        },
                 )
                 DesktopIcon(
-                    title = "Internet Explorer",
-                    onClick = {
-                        state.openWindow(
-                            ApplicationType.Explorer,
-                            "Internet Explorer",
-                            Res.drawable.internet,
-                        )
-                    },
-                    selected = false,
-                    icon = {
-                        Image(
-                            painterResource(Res.drawable.internet),
-                            "Internet Explorer",
-                            modifier = Modifier.size(32.dp),
-                        )
-                    },
+                        title = "Internet Explorer",
+                        onClick = {
+                            state.openWindow(
+                                    ApplicationType.Explorer,
+                                    "Internet Explorer",
+                                    Res.drawable.internet,
+                            )
+                        },
+                        selected = false,
+                        icon = {
+                            Image(
+                                    painterResource(Res.drawable.internet),
+                                    "Internet Explorer",
+                                    modifier = Modifier.size(32.dp),
+                            )
+                        },
                 )
                 DesktopIcon(
-                    title = "Task Manager",
-                    onClick = {
-                        state.openWindow(
-                            ApplicationType.TaskManager,
-                            "Task Manager",
-                            Res.drawable
-                                .programs, // Using programs icon as
-                            // placeholder
-                        )
-                    },
-                    selected = false,
-                    icon = {
-                        Image(
-                            painterResource(Res.drawable.programs),
-                            "Task Manager",
-                            modifier = Modifier.size(32.dp),
-                        )
-                    },
+                        title = "Task Manager",
+                        onClick = {
+                            state.openWindow(
+                                    ApplicationType.TaskManager,
+                                    "Close Program",
+                                    Res.drawable.programs, // Using programs icon as
+                                    // placeholder
+                                    )
+                        },
+                        selected = false,
+                        icon = {
+                            Image(
+                                    painterResource(Res.drawable.programs),
+                                    "Task Manager",
+                                    modifier = Modifier.size(32.dp),
+                            )
+                        },
                 )
             }
 
@@ -140,124 +139,103 @@ fun Desktop() {
                 key(window.id) {
                     if (window.isOpen && !window.isMinimized) {
                         Window(
-                            title = window.title,
-                            icon = {
-                                Image(
-                                    painterResource(
-                                        window.icon,
-                                    ),
-                                    window.title,
-                                    modifier =
-                                        Modifier.size(
-                                            16.dp,
-                                        ),
-                                )
-                            },
-                            onClose = { state.closeWindow(window) },
-                            onMinimize = {
-                                state.minimizeWindow(window)
-                            },
-                            onMaximize = {
-                                state.maximizeWindow(window)
-                            },
-                            isMaximized = window.isMaximized,
-                            modifier =
-                                if (window.isMaximized) {
-                                    Modifier.fillMaxSize()
-                                } else {
-                                    Modifier
-                                        .offset {
-                                            IntOffset(
-                                                window.position
-                                                    .x
-                                                    .roundToInt(),
-                                                window.position
-                                                    .y
-                                                    .roundToInt(),
-                                            )
-                                        }.size(window.size)
+                                title = window.title,
+                                icon = {
+                                    Image(
+                                            painterResource(
+                                                    window.icon,
+                                            ),
+                                            window.title,
+                                            modifier =
+                                                    Modifier.size(
+                                                            16.dp,
+                                                    ),
+                                    )
                                 },
-                            onDrag = { delta ->
-                                if (!window.isMaximized) {
-                                    window.position += delta
-                                }
-                            },
-                            onClick = { state.bringToFront(window) },
+                                onClose = { state.closeWindow(window) },
+                                onMinimize = { state.minimizeWindow(window) },
+                                onMaximize = { state.maximizeWindow(window) },
+                                isMaximized = window.isMaximized,
+                                modifier =
+                                        if (window.isMaximized) {
+                                            Modifier.fillMaxSize()
+                                        } else {
+                                            Modifier.offset {
+                                                        IntOffset(
+                                                                window.position.x.roundToInt(),
+                                                                window.position.y.roundToInt(),
+                                                        )
+                                                    }
+                                                    .size(window.size)
+                                        },
+                                onDrag = { delta ->
+                                    if (!window.isMaximized) {
+                                        window.position += delta
+                                    }
+                                },
+                                onClick = { state.bringToFront(window) },
                         ) {
                             when (window.type) {
                                 ApplicationType.MyComputer -> {
                                     Box(
-                                        modifier =
-                                            Modifier
-                                                .fillMaxSize()
-                                                .background(
-                                                    Colors.White,
-                                                ).padding(
-                                                    8.dp,
-                                                ),
+                                            modifier =
+                                                    Modifier.fillMaxSize()
+                                                            .background(
+                                                                    Colors.White,
+                                                            )
+                                                            .padding(
+                                                                    8.dp,
+                                                            ),
                                     ) {
                                         Row {
                                             DesktopIcon(
-                                                title =
-                                                    "(C:)",
-                                                onClick = {
-                                                },
-                                                textColor =
-                                                    Colors.Black,
-                                                selected =
-                                                false,
-                                                icon = {
-                                                    Image(
-                                                        painterResource(
-                                                            Res.drawable
-                                                                .disk_drive,
-                                                        ),
-                                                        "C:",
-                                                        modifier =
-                                                            Modifier.size(
-                                                                32.dp,
-                                                            ),
-                                                    )
-                                                },
+                                                    title = "(C:)",
+                                                    onClick = {},
+                                                    textColor = Colors.Black,
+                                                    selected = false,
+                                                    icon = {
+                                                        Image(
+                                                                painterResource(
+                                                                        Res.drawable.disk_drive,
+                                                                ),
+                                                                "C:",
+                                                                modifier =
+                                                                        Modifier.size(
+                                                                                32.dp,
+                                                                        ),
+                                                        )
+                                                    },
                                             )
                                             DesktopIcon(
-                                                title =
-                                                    "(D:)",
-                                                onClick = {
-                                                },
-                                                textColor =
-                                                    Colors.Black,
-                                                selected =
-                                                false,
-                                                icon = {
-                                                    Image(
-                                                        painterResource(
-                                                            Res.drawable
-                                                                .cd_drive,
-                                                        ),
-                                                        "D:",
-                                                        modifier =
-                                                            Modifier.size(
-                                                                32.dp,
-                                                            ),
-                                                    )
-                                                },
+                                                    title = "(D:)",
+                                                    onClick = {},
+                                                    textColor = Colors.Black,
+                                                    selected = false,
+                                                    icon = {
+                                                        Image(
+                                                                painterResource(
+                                                                        Res.drawable.cd_drive,
+                                                                ),
+                                                                "D:",
+                                                                modifier =
+                                                                        Modifier.size(
+                                                                                32.dp,
+                                                                        ),
+                                                        )
+                                                    },
                                             )
                                         }
                                     }
                                 }
-                                ApplicationType.Explorer ->
-                                    Explorer()
-                                ApplicationType.TaskManager ->
-                                    TaskManager(state)
+                                ApplicationType.Explorer -> Explorer()
+                                ApplicationType.TaskManager -> TaskManager(state)
                                 else ->
-                                    Box(
-                                        Modifier
-                                            .fillMaxSize()
-                                            .background(
-                                                Colors.White,
-                                            ),
-                                    )
+                                        Box(
+                                                Modifier.fillMaxSize()
+                                                        .background(
+                                                                Colors.White,
+                                                        ),
+                                        )
                             }
                         }
                     }
@@ -271,48 +249,45 @@ fun Desktop() {
             val taskbarHeightPx = with(density) { 28.dp.roundToPx() }
 
             Popup(
-                alignment = Alignment.BottomStart,
-                offset = IntOffset(0, -taskbarHeightPx),
-                onDismissRequest = { state.startMenuOpen = false },
-                properties = PopupProperties(focusable = true),
+                    alignment = Alignment.BottomStart,
+                    offset = IntOffset(0, -taskbarHeightPx),
+                    onDismissRequest = { state.startMenuOpen = false },
+                    properties = PopupProperties(focusable = true),
             ) { StartMenu() }
         }
 
         // Taskbar
         Taskbar(
-            onStartClick = { state.startMenuOpen = !state.startMenuOpen },
-            openWindows =
-                state.windows.map { window ->
-                    TaskbarItem(
-                        title = window.title,
-                        onClick = {
-                            if (window.isMinimized) {
-                                state.restoreWindow(window)
-                            } else if (window ==
-                                state.windows.lastOrNull()
-                            ) {
-                                state.minimizeWindow(window)
-                            } else {
-                                state.bringToFront(window)
-                            }
-                        },
-                        isActive =
-                            !window.isMinimized &&
-                                window ==
-                                state.windows.lastOrNull(),
-                        icon = {
-                            Image(
-                                painterResource(window.icon),
-                                window.title,
-                                modifier =
-                                    Modifier.size(
-                                        16.dp,
-                                    ),
+                onStartClick = { state.startMenuOpen = !state.startMenuOpen },
+                openWindows =
+                        state.windows.map { window ->
+                            TaskbarItem(
+                                    title = window.title,
+                                    onClick = {
+                                        if (window.isMinimized) {
+                                            state.restoreWindow(window)
+                                        } else if (window == state.windows.lastOrNull()) {
+                                            state.minimizeWindow(window)
+                                        } else {
+                                            state.bringToFront(window)
+                                        }
+                                    },
+                                    isActive =
+                                            !window.isMinimized &&
+                                                    window == state.windows.lastOrNull(),
+                                    icon = {
+                                        Image(
+                                                painterResource(window.icon),
+                                                window.title,
+                                                modifier =
+                                                        Modifier.size(
+                                                                16.dp,
+                                                        ),
+                                        )
+                                    },
                             )
                         },
-                    )
-                },
-            isStartMenuOpen = state.startMenuOpen,
+                isStartMenuOpen = state.startMenuOpen,
         )
     }
 }

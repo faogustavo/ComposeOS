@@ -35,4 +35,7 @@ object Colors {
     val TitleBarActive = Navy
     val TitleBarInactive = Gray
     val TitleBarText = White
+
+    val Highlight = Navy
+    val HighlightText = White
 }

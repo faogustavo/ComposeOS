@@ -22,60 +22,75 @@ import com.composeos.win95.foundation.win98Border
 
 @Composable
 fun Button(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    contentPadding: PaddingValues = PaddingValues(horizontal = 12.dp, vertical = 4.dp),
-    forcePressed: Boolean = false,
-    contentAlignment: Alignment = Alignment.Center,
-    content: @Composable () -> Unit,
+        onClick: () -> Unit,
+        modifier: Modifier = Modifier,
+        contentPadding: PaddingValues = PaddingValues(horizontal = 12.dp, vertical = 4.dp),
+        forcePressed: Boolean = false,
+        contentAlignment: Alignment = Alignment.Center,
+        enabled: Boolean = true,
+        content: @Composable () -> Unit,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
     val actuallyPressed = isPressed || forcePressed
 
     Box(
-        modifier =
-            modifier
-                .background(
-                    _root_ide_package_.com.composeos.win95.foundation.Colors
-                        .ButtonFace,
-                ).win98Border(pressed = actuallyPressed)
-                .clickable(
-                    interactionSource = interactionSource,
-                    indication = null,
-                    onClick = onClick,
-                ).padding(contentPadding)
-                .padding(
-                    if (isPressed) {
-                        PaddingValues(start = 1.dp, top = 1.dp)
-                    } else {
-                        PaddingValues(0.dp)
-                    },
-                ),
-        contentAlignment = contentAlignment,
+            modifier =
+                    modifier.background(
+                                    _root_ide_package_.com.composeos.win95.foundation.Colors
+                                            .ButtonFace,
+                            )
+                            .win98Border(pressed = actuallyPressed)
+                            .then(
+                                    if (enabled) {
+                                        Modifier.clickable(
+                                                interactionSource = interactionSource,
+                                                indication = null,
+                                                onClick = onClick,
+                                        )
+                                    } else {
+                                        Modifier
+                                    },
+                            )
+                            .padding(contentPadding)
+                            .padding(
+                                    if (isPressed) {
+                                        PaddingValues(start = 1.dp, top = 1.dp)
+                                    } else {
+                                        PaddingValues(0.dp)
+                                    },
+                            ),
+            contentAlignment = contentAlignment,
     ) { content() }
 }
 
 @Composable
 fun TextButton(
-    text: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
+        text: String,
+        onClick: () -> Unit,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
 ) {
     _root_ide_package_.com.composeos.win95.components.Button(
-        onClick = onClick,
-        modifier = modifier,
+            onClick = onClick,
+            modifier = modifier,
+            enabled = enabled,
     ) {
         BasicText(
-            text = text,
-            style =
-                TextStyle(
-                    color =
-                        _root_ide_package_.com.composeos.win95.foundation
-                            .Colors.ButtonText,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold,
-                ),
+                text = text,
+                style =
+                        TextStyle(
+                                color =
+                                        if (enabled) {
+                                            _root_ide_package_.com.composeos.win95.foundation.Colors
+                                                    .ButtonText
+                                        } else {
+                                            _root_ide_package_.com.composeos.win95.foundation.Colors
+                                                    .ButtonShadow
+                                        },
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Bold,
+                        ),
         )
     }
 }
