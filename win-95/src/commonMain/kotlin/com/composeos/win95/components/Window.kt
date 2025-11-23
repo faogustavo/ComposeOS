@@ -2,10 +2,13 @@ package com.composeos.win95.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -29,15 +32,18 @@ fun Window(
     isMaximized: Boolean = false,
     icon: (@Composable () -> Unit)? = null,
     isActive: Boolean = true,
+    onClick: () -> Unit = {},
     content: @Composable () -> Unit,
 ) {
     Column(
         modifier =
             modifier
-                .background(
-                    _root_ide_package_.com.composeos.win95.foundation.Colors
-                        .ButtonFace,
-                ).win98Border(pressed = false, outerWidth = 2.dp, innerWidth = 1.dp)
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null,
+                    onClick = onClick,
+                ).background(Colors.ButtonFace)
+                .win98Border(pressed = false, outerWidth = 2.dp, innerWidth = 1.dp)
                 .padding(3.dp),
     ) {
         // Title Bar
@@ -91,7 +97,7 @@ fun Window(
                                 )
                             },
                     ).padding(horizontal = 2.dp)
-                    .pointerInput(Unit) {
+                    .pointerInput(onDrag) {
                         detectDragGestures { change, dragAmount ->
                             change.consume()
                             onDrag?.invoke(dragAmount)
