@@ -39,6 +39,7 @@ class WindowState(
 class DesktopState {
     val windows = mutableStateListOf<WindowState>()
     var startMenuOpen by mutableStateOf(false)
+    var selectedIcon by mutableStateOf<String?>(null)
 
     fun openWindow(
         type: ApplicationType,

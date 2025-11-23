@@ -4,7 +4,7 @@ This is a Kotlin Multiplatform project designed to target multiple platforms: An
 
 The project is structured into two main modules:
 - `:composeApp`: Contains the core shared code and platform-specific implementations for Android, iOS, Web, and Desktop.
-- `:win-98`: (Further investigation needed to confirm its exact purpose, but likely another module within the multiplatform setup).
+- `:win-95`: A Compose Multiplatform UI library that provides Windows 95-themed components and assets. It targets Android, iOS, JVM (Desktop), JS, and WasmJs.
 
 ## Technologies Used
 
@@ -57,11 +57,24 @@ Open the `iosApp` directory in Xcode and run it from there.
 *   **UI:** Developed using Compose Multiplatform.
 *   **Build System:** Gradle is used for building the project.
 *   **Code Formatting:** The project uses `ktlint` for code formatting. Run `ktlint -F` to format the code.
+    * The `ktlint` is already installed in the path
+
+## UI/UX Behavior
+
+### Desktop Icons
+
+Desktop icons follow the traditional desktop interaction pattern:
+- **Single-click**: Selects the icon (highlighted with a navy background and yellow border)
+- **Double-click**: Opens the application/window associated with the icon
+
+This behavior is implemented using:
+- `DesktopIcon` component with `onDoubleClick` parameter
+- `DesktopState.selectedIcon` to track the currently selected icon
+- `combinedClickable` modifier from Compose Foundation
 
 ## Further Exploration
 
-*   **`:win-98` module:** This module is a Compose Multiplatform UI library that provides Windows 98-themed components and assets. It targets Android, iOS, JVM (Desktop), JS, and WasmJs.
-*   **Main Entry Point:** The main entry point of the Compose Multiplatform application is `composeApp/src/commonMain/kotlin/co/compose/dev/os/App.kt`, which calls the `Desktop()` composable from the `:win-98` module.
+*   **Main Entry Point:** The main entry point of the Compose Multiplatform application is `composeApp/src/commonMain/kotlin/co/compose/dev/os/App.kt`, which calls the `Desktop()` composable from the `:win-95` module.
 *   **Resource Management:**
     *   `composeApp/src/commonMain/composeResources/drawable/` contains general Compose Multiplatform assets (e.g., `compose-multiplatform.xml`).
-    *   `win-98/src/commonMain/composeResources/drawable/` contains Windows 98-themed icons (e.g., `cd_drive.png`, `folder.png`, `my_computer.png`).
+    *   `win-95/src/commonMain/composeResources/drawable/` contains Windows 95-themed icons (e.g., `cd_drive.png`, `folder.png`, `my_computer.png`).

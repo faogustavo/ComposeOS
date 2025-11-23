@@ -44,14 +44,15 @@ fun Desktop() {
             Column(modifier = Modifier.padding(8.dp)) {
                 DesktopIcon(
                     title = "My Computer",
-                    onClick = {
+                    onClick = { state.selectedIcon = "My Computer" },
+                    onDoubleClick = {
                         state.openWindow(
                             ApplicationType.MyComputer,
                             "My Computer",
                             Res.drawable.my_computer,
                         )
                     },
-                    selected = false,
+                    selected = state.selectedIcon == "My Computer",
                     icon = {
                         Image(
                             painterResource(Res.drawable.my_computer),
@@ -62,8 +63,8 @@ fun Desktop() {
                 )
                 DesktopIcon(
                     title = "Recycle Bin",
-                    onClick = {},
-                    selected = false,
+                    onClick = { state.selectedIcon = "Recycle Bin" },
+                    selected = state.selectedIcon == "Recycle Bin",
                     icon = {
                         Image(
                             painterResource(Res.drawable.recycle_bin),
@@ -74,8 +75,8 @@ fun Desktop() {
                 )
                 DesktopIcon(
                     title = "Network Neighborhood",
-                    onClick = {},
-                    selected = false,
+                    onClick = { state.selectedIcon = "Network Neighborhood" },
+                    selected = state.selectedIcon == "Network Neighborhood",
                     icon = {
                         Image(
                             painterResource(Res.drawable.network),
@@ -86,8 +87,8 @@ fun Desktop() {
                 )
                 DesktopIcon(
                     title = "Inbox",
-                    onClick = {},
-                    selected = false,
+                    onClick = { state.selectedIcon = "Inbox" },
+                    selected = state.selectedIcon == "Inbox",
                     icon = {
                         Image(
                             painterResource(Res.drawable.inbox),
@@ -98,14 +99,15 @@ fun Desktop() {
                 )
                 DesktopIcon(
                     title = "Internet Explorer",
-                    onClick = {
+                    onClick = { state.selectedIcon = "Internet Explorer" },
+                    onDoubleClick = {
                         state.openWindow(
                             ApplicationType.Explorer,
                             "Internet Explorer",
                             Res.drawable.internet,
                         )
                     },
-                    selected = false,
+                    selected = state.selectedIcon == "Internet Explorer",
                     icon = {
                         Image(
                             painterResource(Res.drawable.internet),
@@ -116,7 +118,8 @@ fun Desktop() {
                 )
                 DesktopIcon(
                     title = "Task Manager",
-                    onClick = {
+                    onClick = { state.selectedIcon = "Task Manager" },
+                    onDoubleClick = {
                         state.openWindow(
                             ApplicationType.TaskManager,
                             "Close Program",
@@ -124,7 +127,7 @@ fun Desktop() {
                             // placeholder
                         )
                     },
-                    selected = false,
+                    selected = state.selectedIcon == "Task Manager",
                     icon = {
                         Image(
                             painterResource(Res.drawable.programs),
@@ -135,14 +138,15 @@ fun Desktop() {
                 )
                 DesktopIcon(
                     title = "Themes",
-                    onClick = {
+                    onClick = { state.selectedIcon = "Themes" },
+                    onDoubleClick = {
                         state.openWindow(
                             ApplicationType.FileExplorer,
                             "Themes",
                             Res.drawable.folder,
                         )
                     },
-                    selected = false,
+                    selected = state.selectedIcon == "Themes",
                     icon = {
                         Image(
                             painterResource(Res.drawable.folder),
@@ -175,6 +179,7 @@ fun Desktop() {
                             onMinimize = { state.minimizeWindow(window) },
                             onMaximize = { state.maximizeWindow(window) },
                             isMaximized = window.isMaximized,
+                            isActive = window == state.windows.lastOrNull(),
                             modifier =
                                 if (window.isMaximized) {
                                     Modifier.fillMaxSize()

@@ -1,8 +1,9 @@
 package com.composeos.win95.components
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
@@ -15,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.composeos.win95.foundation.Colors
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DesktopIcon(
     title: String,
@@ -22,13 +24,20 @@ fun DesktopIcon(
     modifier: Modifier = Modifier,
     selected: Boolean = false,
     textColor: Color = _root_ide_package_.com.composeos.win95.foundation.Colors.White,
+    onDoubleClick: (() -> Unit)? = null,
     icon: @Composable () -> Unit = {
         _root_ide_package_.com.composeos.win95.components
             .DefaultIconPlaceholder()
     },
 ) {
     Column(
-        modifier = modifier.width(70.dp).clickable(onClick = onClick),
+        modifier =
+            modifier
+                .width(70.dp)
+                .combinedClickable(
+                    onClick = onClick,
+                    onDoubleClick = onDoubleClick ?: onClick,
+                ),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         icon()
@@ -37,19 +46,31 @@ fun DesktopIcon(
             text = title,
             style =
                 TextStyle(
-                    color = if (selected) _root_ide_package_.com.composeos.win95.foundation.Colors.White else textColor,
+                    color =
+                        if (selected) {
+                            _root_ide_package_.com.composeos.win95.foundation
+                                .Colors.White
+                        } else {
+                            textColor
+                        },
                     fontSize = 11.sp,
                     textAlign = TextAlign.Center,
                 ),
             modifier =
                 Modifier
                     .background(
-                        if (selected) _root_ide_package_.com.composeos.win95.foundation.Colors.Navy else Color.Transparent,
+                        if (selected) {
+                            _root_ide_package_.com.composeos.win95.foundation
+                                .Colors.Navy
+                        } else {
+                            Color.Transparent
+                        },
                     ).border(
                         width = 1.dp,
                         color =
                             if (selected) {
-                                _root_ide_package_.com.composeos.win95.foundation.Colors.Yellow
+                                _root_ide_package_.com.composeos.win95
+                                    .foundation.Colors.Yellow
                             } else {
                                 Color.Transparent
                             },
@@ -72,6 +93,9 @@ fun DefaultIconPlaceholder() {
                     32.dp,
                 ).background(
                     _root_ide_package_.com.composeos.win95.foundation.Colors.Silver,
-                ).border(1.dp, _root_ide_package_.com.composeos.win95.foundation.Colors.Black),
+                ).border(
+                    1.dp,
+                    _root_ide_package_.com.composeos.win95.foundation.Colors.Black,
+                ),
     )
 }
